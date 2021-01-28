@@ -20,6 +20,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] Vector3 pointB = new Vector3(0, 0, 0);
     Vector2 waypointDirection;
     [SerializeField] bool patrolling = false;
+    [SerializeField] bool isOnGround = true;
 
 
 
@@ -40,7 +41,10 @@ public class EnemyController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isOnGround==true)
+        { 
         Patrol(waypointDirection);
+        }
     }
 
     void Pathing()
@@ -97,6 +101,19 @@ public class EnemyController : MonoBehaviour
         moveSpeed = 0;
         Destroy(gameObject.GetComponent<BoxCollider2D>());
         Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isOnGround = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        isOnGround = false;
     }
 
 }
