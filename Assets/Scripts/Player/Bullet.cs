@@ -9,23 +9,26 @@ public class Bullet : MonoBehaviour
     float range = 1f;
     [SerializeField] float speed = 0f;
     [SerializeField] float damage = 1;
+    [SerializeField] Rigidbody2D rb;
     //[SerializeField] ParticleSystem particleSystem;
     void Start()
     {
         target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         target.z = 0;
         direction = (target - transform.position).normalized;
+        rb.velocity = direction * speed;
         Destroy(gameObject, range);
     }
 
     void Update()
     {
-        float step = speed * Time.deltaTime;
-        transform.Translate(direction * step);
+        //float step = speed * Time.deltaTime;
+        //transform.Translate(direction * step);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log(this.name + " has collided with " + collision.name);
         if (!collision.gameObject.CompareTag("Player"))
         {
 
