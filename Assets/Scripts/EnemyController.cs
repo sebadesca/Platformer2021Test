@@ -16,8 +16,10 @@ public class EnemyController : MonoBehaviour
 
     [Header("Enemy Pathing")]
     // Waypoints
-    [SerializeField] Vector3 pointA = new Vector3(0, 0, 0);
-    [SerializeField] Vector3 pointB = new Vector3(0, 0, 0);
+    [SerializeField] float PatrolPointA = 0f;
+    [SerializeField] float PatrolPointB = 0f;
+    Vector3 pointA;
+    Vector3 pointB;
     Vector2 waypointDirection;
     [SerializeField] bool patrolling = false;
     [SerializeField] bool isOnGround = true;
@@ -27,6 +29,8 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        pointA = new Vector3(PatrolPointA, transform.position.y, transform.position.z);
+        pointB = new Vector3(PatrolPointB, transform.position.y, transform.position.z);
         health = startHealth;
         rb = this.GetComponent<Rigidbody2D>();
 
