@@ -55,7 +55,7 @@ public class Weapon : MonoBehaviour
             Debug.DrawLine(sourcePos, hit.point, Color.red);
             Debug.Log("We hit " + hit.collider.name + " for " + damage + "damage.");
         }
-        Instantiate(bullet, transform.position, bullet.transform.rotation);
+        Instantiate(bullet, fireSource.transform.position, bullet.transform.rotation);
 
     }
 
