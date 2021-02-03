@@ -294,11 +294,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
-  startHealth: 5
+  startHealth: 150
   healthBar: {fileID: 159925332511453130}
   enemyCanvas: {fileID: 8121390988108565444}
-  pointA: {x: 0, y: 0, z: 0}
-  pointB: {x: 0, y: 0, z: 0}
+  PatrolPointA: 0
+  PatrolPointB: 0
   patrolling: 0
   isOnGround: 1
 --- !u!1 &8121390988108565444
