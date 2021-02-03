@@ -12,17 +12,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool airJump = true;
     bool facingRight = true;
     Transform playerGraphics;
-    //[SerializeField] int startHealth = 100;
-    //[SerializeField] int currentHealth;
-    //[SerializeField] int maxHealth = 100;
+    [SerializeField] int startHealth;
+    [SerializeField] int currentHealth;
+    [SerializeField] int maxHealth = 100;
     public float horizontalInput;
-
 
     GameManager gm;
 
     void Start()
     {
-        //currentHealth = startHealth;
+        startHealth = maxHealth;
+        currentHealth = startHealth;
         //fireRate = 0.2f;
         //nextFire = Time.time;
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -36,15 +36,15 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //if (gmScript.gameNotOver)
-        //{
+        if (!gm.gameOver)
+        {
         //  PlayerAttackInput();
         //    gameObject.SetActive(true);
         //}
         //else
         //{
         //    gameObject.SetActive(false);
-        //}
+        }
         horizontalInput = Input.GetAxis("Horizontal");
 
         if (Input.GetKeyDown(KeyCode.Space) & isOnGround)
@@ -99,28 +99,6 @@ public class PlayerController : MonoBehaviour
     //  }
     //}
 
-
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //  if (collision.CompareTag("Enemy") || collision.CompareTag("Enemy Proj"))
-    //{
-    //  ModifyHealth(-damageReceivedByEnemy);
-    //}
-    //}
-    //public void ModifyHealth(int hpmod)
-    //{
-    //   currentHealth += hpmod;
-    //  if (currentHealth > maxHealth)
-    // {
-    //    currentHealth = maxHealth;
-    // }
-    // else if (currentHealth < 1)
-    //{
-    //   currentHealth = 0;
-    //gmScript.GameOver();
-    //}
-    //gmScript.ModifyHealthText(currentHealth);
-    //}
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
@@ -128,8 +106,27 @@ public class PlayerController : MonoBehaviour
             isOnGround = true;
             airJump = true;
         }
-
+        else if (collision.gameObject.CompareTag("Enemy"))// || collision.CompareTag("Enemy Proj"))
+        {
+            ModifyHealth(-1);//-damageReceivedByEnemy);
+        }
     }
+
+    public void ModifyHealth(int hpmod)
+    {
+        currentHealth += hpmod;
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        // else if (currentHealth < 1)
+        //{
+        //   currentHealth = 0;
+        //gmScript.GameOver();
+        //}
+        //gmScript.ModifyHealthText(currentHealth);
+    }
+
 
     void Flip()
     {
